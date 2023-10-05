@@ -75,7 +75,6 @@ await initialize({
     sdkApiKeyPhrase: sdkConfig.apiKeyPhrase, // given by client
     version, // app version
     sdkRealm: sdkConfig.realm, //  given by aag
-    mainnet: sdkConfig.mainnet  // specify maninet or testnet
 });
 ```
 

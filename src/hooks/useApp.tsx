@@ -30,9 +30,9 @@ const AppContext = createContext<IAppData>({
   isAuthorized: false,
   colors: undefined,
   language: undefined,
-  setIsAuthorized: () => { },
+  setIsAuthorized: () => undefined,
   isGlobalLoading: false,
-  setGlobalLoading: () => { },
+  setGlobalLoading: () => undefined,
   onChangeTheme: (theme: string) => theme,
   onChangeLanguage: (lang: LanguageType) => lang,
 });
@@ -72,7 +72,6 @@ const useApp = () => {
         sdkApiKeyPhrase: sdkConfig.apiKeyPhrase,
         version,
         sdkRealm: sdkConfig.realm,
-        mainnet: sdkConfig.mainnet,
       });
       await fetchColorsScheme();
       await fetchCurrentLanguage();
