@@ -1,137 +1,79 @@
-# MetaOne Wallet Integration Guide for React Native
+This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-## Overview
+# Getting Started
 
-This guide will walk you through integrating the MetaOne wallet into your React Native app. Provide your users with a secure and convenient way to manage their digital assets with MetaOne Wallet. It is a custody wallet that eliminates the need for private keys, passphrases, or hardware wallets.
+>**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-## Setup
+## Step 1: Start the Metro Server
 
-**Step 1: Setting up SSH for access to your repositories**
+First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
-After you are accepted to the SDK integration program, you will be provided with SSH keys required to access secure repositories. If you haven’t received them please ask your integration success manager to provide you files.
+To start Metro, run the following command from the _root_ of your React Native project:
 
-**Step 2: Installing dependency**
+```bash
+# using npm
+npm start
 
-`npm i @aag-development/react-native-metaone-wallet-sdk` or `yarn add @aag-development/react-native-metaone-wallet-sdkk`
-
-**Step 3: Adding MetaOne Wallet SDK to your project**
-### Android
-
-Add the following config to your "local.properties" file inside the Android directory:
-
-```
-walletsdk.maven.url=url // given by aag
-walletsdk.maven.username=username // given by aag
-walletsdk.maven.password=password // given by aag
+# OR using Yarn
+yarn start
 ```
 
-Add the following code to your build.gradle file:
+## Step 2: Start your Application
 
-```
-url properties.getProperty('walletsdk.maven.url')
-credentials {
-    username = properties.getProperty('walletsdk.maven.username')
-    password = properties.getProperty('walletsdk.maven.password')
-}
-```
+Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
-### iOS
-#### 1. Add the following code to your Podfile:
-```
-// Add to top of Podfile
-source 'https://cdn.cocoapods.org/'
-source 'https://bitbucket.org/cybavo/Specs_512.git'
+### For Android
+
+```bash
+# using npm
+npm run android
+
+# OR using Yarn
+yarn android
 ```
 
-```
-target 'YourTarget' do
-  use_frameworks! // Add this line
-end
-```
+### For iOS
 
-```
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0' // Add this line
-            config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES' // Add this line
-        end
-    end
-end
+```bash
+# using npm
+npm run ios
+
+# OR using Yarn
+yarn ios
 ```
 
-#### 2. Run `pod install` in `ios/`
+If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
-**Step 4: Initializing SDK**
+This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-Initialize MetaOne SDK:
+## Step 3: Modifying your App
 
-```
-await initialize({
-    sdkEnvironment: sdkConfig.environment, // test, stage, prod
-    sdkKey: Platform.OS === "ios" ? sdkConfig.iOSKey : sdkConfig.androidKey,  // given by aag
-    sdkConfigUrl: sdkConfig.configUrl, // given by aag
-    sdkApiClientReference: sdkConfig.apiClientReference, //  given by aag
-    sdkApiKeyPhrase: sdkConfig.apiKeyPhrase, // given by client
-    version, // app version
-    sdkRealm: sdkConfig.realm, //  given by aag
-});
-```
+Now that you have successfully run the app, let's modify it.
 
-Check session status:
+1. Open `App.tsx` in your text editor of choice and edit some lines.
+2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
 
-```await getSessionActivityStatus();```
+   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
 
-**Step 4: Creating User Session**
+## Congratulations! :tada:
 
-To successfully initialize a user session your back-end integration has to be ready first. Your backend should receive an Authorization token during the initialization request.
+You've successfully run and modified your React Native App. :partying_face:
 
-Initialize the session by calling: `logInWithSSO(token);`
+### Now what?
 
-Your session is initialized. You can now use all other functions that require Authorization
+- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
+- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
 
-Call `setupUserData();` to initialize user profile data
+# Troubleshooting
 
+If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
 
-## Using SDK functions
+# Learn More
 
-### SDK session management functions
+To learn more about React Native, take a look at the following resources:
 
-- `initialize(Map<String,String> sdkConfig)`: Initializes the MetaOne SDK by setting up the app configuration. Provide SDKConfig map with configuration values.
-- `setupUserData()`: Sets up the user data by fetching the user profile and user state. This function ensures that the user profile and user state are available for use.
-- `loginWithSSO(String token)`: Performs the login process by sending an authorization token.
-- `refreshSession()`: Refreshes the user session to extend the session expiration time.
-- `openWallet()`: For new users opens the Signature creation flow. If Signature is created - opens Wallet activity.
-- `getSessionActivityStatus()`: Retrieves the current session activity status, which can be one of the values defined in the `SessionActivityStatus` enum.
-- `logout()`: Logs out the user by clearing the session data, signing out the wallet service.
-- (In progress) `cancelTokenExpirationCountdown()`: Cancels the token expiration countdown if it is currently running.
-- (In progress) `setOnTokenExpirationListener(onTokenExpirationListener: OnTokenExpirationListener)`: Sets the listener for token expiration events. You can implement the `OnTokenExpirationListener` interface to handle token expiration, session activity changes, and token countdown events.
-- `getExpireAt()`: Long: Retrieves the expiration timestamp of the user session.
-
-### SDK API management functions (In progress)
-
-- `getWallets()`: Retrieves the user's wallets.
-- `getCurrencies()`: Retrieves the user's currencies.
-- `getNFTs(walletId: String?, searchString: String?, limit: Int = 100, offset: Int = 0)`: Retrieves the user's NFTs (Non-Fungible Tokens) based on the wallet ID and optional search parameters. You can provide the wallet ID, a search string, and optional limit and offset values.
-- `getTransactions(walletId: String?, assetRef: String?, bip44: String?, tokenAddress: String?, page: Int?, offset: Int?)`: Retrieves the transactions for a specific wallet and optional parameters. You need to provide the wallet ID and can optionally provide the asset reference, bip44 value, token address, page number, and offset.
-- (In progress)`getTransaction(walletId: String?, chainId: String?, bip44: String?)`: Retrieves a specific transaction based on the wallet ID, chain ID, and bip44 value. You need to provide the wallet ID, chain ID, and bip44 value.
-- `getUserContacts()`: Retrieves the user's contacts from the address book.
-- `getUserContactWithId(id: String)`: Retrieves a specific contact based on the contact ID. You need to provide the contact ID.
-
-### SDK UI management functions
-
-- `getColorsScheme()`: Retrieves the currently set colors for the MetaOne SDK UI.
-- `setColorsScheme(colors:ColorsScheme)`: Sets the colors for the MetaOne SDK UI.
-- `getCurrentLanguage()`: Retrieves the currently set language for the MetaOne SDK UI. It returns a Locale object representing the language.
-- `setCurrentLanguage(locale: String)`: Sets the language for the MetaOne SDK UI. You need to provide the desired language as a String value, representing the locale.
-
----
-
-Please note that some functions are marked as "In progress," indicating they may not be fully implemented yet. Make sure to check the official documentation for the latest updates and usage instructions.
-
-### Important:
-
-To ensure a good user experience, we recommend you implement:
-
-1. Initialize user session during initial auth
-2. Refresh the user session when the session expires.
+- [React Native Website](https://reactnative.dev) - learn more about React Native.
+- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
+- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
+- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
+- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
