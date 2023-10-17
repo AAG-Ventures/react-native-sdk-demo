@@ -1,10 +1,13 @@
 import React from 'react';
 import ProfileScreen from './screens/ProfileScreen';
 import LoginScreen from './screens/LoginScreen';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator, type NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { useAppContext } from './hooks/useApp';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {
+  createNativeStackNavigator,
+  type NativeStackNavigationProp,
+} from '@react-navigation/native-stack';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {useAppContext} from './hooks/useApp';
 import ChangeThemeScreen from './screens/ChangeThemeScreen';
 import ChangeLanguageScreen from './screens/ChangeLanguageScreen';
 import ApiTestingScreen from './screens/ApiTestingScreen';
@@ -17,53 +20,53 @@ export type RouteStackTypescript = {
   ApiTesting: undefined;
 };
 
-export const useAppNavigation = () => useNavigation<NativeStackNavigationProp<RouteStackTypescript>>();
+export const useAppNavigation = () =>
+  useNavigation<NativeStackNavigationProp<RouteStackTypescript>>();
 
 const Stack = createNativeStackNavigator<RouteStackTypescript>();
 
 const AppNavigator: React.FC = () => {
-  const { isInitialized, isAuthorized, isGlobalLoading } = useAppContext();
+  const {isInitialized, isAuthorized, isGlobalLoading} = useAppContext();
   return (
-    <View style={{ flex: 1 }}>
-      {
-        isInitialized && <NavigationContainer>
+    <View style={styles.container}>
+      {isInitialized && (
+        <NavigationContainer>
           <Stack.Navigator>
-            {
-              !isAuthorized ?
-                <Stack.Group>
-                  <Stack.Screen
-                    name="Login"
-                    component={LoginScreen}
-                    options={{ headerShown: false }}
-                  />
-                </Stack.Group> : (
-                  <Stack.Group>
-                    <Stack.Screen
-                      name="Profile"
-                      component={ProfileScreen}
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="ChangeTheme"
-                      component={ChangeThemeScreen}
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="ChangeLanguage"
-                      component={ChangeLanguageScreen}
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="ApiTesting"
-                      component={ApiTestingScreen}
-                      options={{ headerShown: false }}
-                    />
-                  </Stack.Group>
-                )
-            }
+            {!isAuthorized ? (
+              <Stack.Group>
+                <Stack.Screen
+                  name="Login"
+                  component={LoginScreen}
+                  options={{headerShown: false}}
+                />
+              </Stack.Group>
+            ) : (
+              <Stack.Group>
+                <Stack.Screen
+                  name="Profile"
+                  component={ProfileScreen}
+                  options={{headerShown: false}}
+                />
+                <Stack.Screen
+                  name="ChangeTheme"
+                  component={ChangeThemeScreen}
+                  options={{headerShown: false}}
+                />
+                <Stack.Screen
+                  name="ChangeLanguage"
+                  component={ChangeLanguageScreen}
+                  options={{headerShown: false}}
+                />
+                <Stack.Screen
+                  name="ApiTesting"
+                  component={ApiTestingScreen}
+                  options={{headerShown: false}}
+                />
+              </Stack.Group>
+            )}
           </Stack.Navigator>
         </NavigationContainer>
-      }
+      )}
       {isGlobalLoading && (
         <View style={styles.spinnerContainer}>
           <ActivityIndicator size="large" color="black" />
@@ -74,6 +77,9 @@ const AppNavigator: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   spinnerContainer: {
     flex: 1,
     justifyContent: 'center',

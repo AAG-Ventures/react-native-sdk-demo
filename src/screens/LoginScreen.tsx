@@ -11,44 +11,44 @@ import {
   loginWithSSO,
   logout,
 } from '@aag-development/react-native-metaone-wallet-sdk';
-import { sampleSSOLogin } from '../api/ApiService';
-import { useToast } from 'react-native-toast-notifications';
+import {sampleSSOLogin} from '../api/ApiService';
+import {useToast} from 'react-native-toast-notifications';
 
-import { useAppContext } from '../hooks/useApp';
-import type { ColorsScheme } from '@aag-development/react-native-metaone-wallet-sdk';
+import {useAppContext} from '../hooks/useApp';
+import type {ColorsScheme} from '@aag-development/react-native-metaone-wallet-sdk';
 import useColorsAwareObject from '../hooks/useColorsAwareObject';
-import { Container } from '../components/Container';
+import {Container} from '../components/Container';
 
-const LoginScreen: React.FC<any> = ({ navigation }) => {
+const LoginScreen: React.FC<any> = ({navigation}) => {
   const toast = useToast();
 
   const [inputValue, setInputValue] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
-  const { setIsAuthorized } = useAppContext();
+  const {setIsAuthorized} = useAppContext();
 
   const handleSubmit = () => {
     setIsLoading(true);
     if (inputValue) {
       sampleSSOLogin(
-        { email: inputValue, password: '123456' },
-        async (data) => {
+        {email: inputValue, password: '123456'},
+        async data => {
           try {
             loginWithSSO(data.token).then(() => {
               setIsAuthorized(true);
-              toast.show('Authorized successfully', { type: 'success' });
+              toast.show('Authorized successfully', {type: 'success'});
               setIsLoading(false);
               navigation.navigate('Profile');
             });
           } catch (error) {
             setIsLoading(false);
-            toast.show('Authorized successfully', { type: 'error' });
+            toast.show('Authorized successfully', {type: 'error'});
           }
         },
         () => {
           setIsLoading(false);
-          toast.show('Login failed', { type: 'error' });
+          toast.show('Login failed', {type: 'error'});
           logout();
-        }
+        },
       );
     }
   };
@@ -61,7 +61,7 @@ const LoginScreen: React.FC<any> = ({ navigation }) => {
           style={styles.input}
           placeholder="Enter email"
           value={inputValue}
-          onChangeText={(text) => setInputValue(text)}
+          onChangeText={text => setInputValue(text)}
         />
         <TouchableOpacity onPress={handleSubmit} disabled={!inputValue}>
           <View style={styles.button}>

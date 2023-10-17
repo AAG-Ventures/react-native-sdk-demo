@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import {StyleSheet, View, Text, Button} from 'react-native';
 import useColorsAwareObject from '../hooks/useColorsAwareObject';
-import { Container } from '../components/Container';
+import {Container} from '../components/Container';
 import {
   LanguageType,
   type ColorsScheme,
 } from '@aag-development/react-native-metaone-wallet-sdk';
-import { useAppContext } from '../hooks/useApp';
+import {useAppContext} from '../hooks/useApp';
 
 const ChangeLanguageScreen: React.FC = () => {
-  const { language, onChangeLanguage } = useAppContext();
+  const {language, onChangeLanguage} = useAppContext();
   const styles = useColorsAwareObject(screenStyles);
 
   return (

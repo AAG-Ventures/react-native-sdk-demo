@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import {StyleSheet, View, Text, TextInput, Button} from 'react-native';
 import {
   getWallets,
   type ColorsScheme,
@@ -9,15 +9,15 @@ import {
   getUserContacts,
 } from '@aag-development/react-native-metaone-wallet-sdk';
 import useColorsAwareObject from '../hooks/useColorsAwareObject';
-import { Container } from '../components/Container';
+import {Container} from '../components/Container';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const items = [
-  { label: 'GET:Wallets', value: 'GET:Wallets' },
-  { label: 'GET:Currencies', value: 'GET:Currencies' },
-  { label: 'GET:NFTs', value: 'GET:NFTs' },
-  { label: 'GET:Transactions', value: 'GET:Transactions' },
-  { label: 'GET:UserContacts', value: 'GET:UserContacts' },
+  {label: 'GET:Wallets', value: 'GET:Wallets'},
+  {label: 'GET:Currencies', value: 'GET:Currencies'},
+  {label: 'GET:NFTs', value: 'GET:NFTs'},
+  {label: 'GET:Transactions', value: 'GET:Transactions'},
+  {label: 'GET:UserContacts', value: 'GET:UserContacts'},
   // { label: 'POST:AddUserContact', value: 'POST:AddUserContact' },
   // { label: 'PUT:UpdateUserContact', value: 'PUT:UpdateUserContact' },
   // { label: 'DELETE:DeleteUserContact', value: 'DELETE:DeleteUserContact' },
@@ -30,8 +30,8 @@ const ApiTestingScreen: React.FC = () => {
 
   const [responseText, setResponseText] = React.useState<string>();
 
-  const onSelectItem = ({ value: changed }: any) => {
-    if (changed != value) {
+  const onSelectItem = ({value: changed}: any) => {
+    if (changed !== value) {
       setResponseText(undefined);
     }
   };
@@ -51,7 +51,7 @@ const ApiTestingScreen: React.FC = () => {
         undefined,
         undefined,
         20,
-        0
+        0,
       );
     } else if (value === 'GET:UserContacts') {
       response = await getUserContacts();

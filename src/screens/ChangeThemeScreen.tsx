@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
-import type { ColorsScheme } from '@aag-development/react-native-metaone-wallet-sdk';
+import {StyleSheet, View, Text, Button} from 'react-native';
+import type {ColorsScheme} from '@aag-development/react-native-metaone-wallet-sdk';
 import useColorsAwareObject from '../hooks/useColorsAwareObject';
-import { Container } from '../components/Container';
-import { useAppContext } from '../hooks/useApp';
+import {Container} from '../components/Container';
+import {useAppContext} from '../hooks/useApp';
 
 const ChangeThemeScreen: React.FC = () => {
-  const { onChangeTheme } = useAppContext();
+  const {onChangeTheme} = useAppContext();
   const styles = useColorsAwareObject(screenStyles);
 
   return (

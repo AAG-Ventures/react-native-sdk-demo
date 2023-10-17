@@ -1,61 +1,61 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import {StyleSheet, View, Text, Button} from 'react-native';
 import {
   getExpireAt,
   getSessionActivityStatus,
   logout,
   refreshSession,
 } from '@aag-development/react-native-metaone-wallet-sdk';
-import { OpenWallet } from '../components/Button/Button';
+import {OpenWallet} from '../components/Button/Button';
 import type {
   AuthApiModel,
   ColorsScheme,
 } from '@aag-development/react-native-metaone-wallet-sdk';
-import { useToast } from 'react-native-toast-notifications';
+import {useToast} from 'react-native-toast-notifications';
 import useSessionExpiration from '../hooks/useSessionExpiration';
-import { useAppContext } from '../hooks/useApp';
+import {useAppContext} from '../hooks/useApp';
 import useColorsAwareObject from '../hooks/useColorsAwareObject';
-import { Container } from '../components/Container';
-import { useAppNavigation } from '../AppNavigator';
+import {Container} from '../components/Container';
+import {useAppNavigation} from '../AppNavigator';
 
 const ProfileScreen: React.FC = () => {
   const toast = useToast();
   const [activityStatus, setActivityStatus] =
     React.useState<AuthApiModel.SessionActivityStatus>();
-  const { setIsAuthorized, setGlobalLoading } = useAppContext();
+  const {setIsAuthorized, setGlobalLoading} = useAppContext();
 
   const handleRefresh = async () => {
     setGlobalLoading(true);
-    await refreshSession().then((active) => {
+    await refreshSession().then(active => {
       if (active) {
-        return getExpireAt().then((res) => {
+        return getExpireAt().then(res => {
           setExpireAt(+res);
         });
       }
-      toast.show('Session refresh was unsuccessful.', { type: 'error' });
+      toast.show('Session refresh was unsuccessful.', {type: 'error'});
       setGlobalLoading(false);
       logout();
     });
-    toast.show('Session refreshed.', { type: 'success' });
+    toast.show('Session refreshed.', {type: 'success'});
     setGlobalLoading(false);
   };
-  const { expireAtSeconds, setExpireAt } = useSessionExpiration(toast);
+  const {expireAtSeconds, setExpireAt} = useSessionExpiration(toast);
 
   React.useEffect(() => {
-    getExpireAt().then((res) => {
+    getExpireAt().then(res => {
       setExpireAt(+res);
     });
-    getSessionActivityStatus().then((res) => {
+    getSessionActivityStatus().then(res => {
       setActivityStatus(res);
     });
-  }, []);
+  }, [setExpireAt]);
 
   const handleLogout = () => {
     logout();
     setIsAuthorized(false);
-    toast.show('Logout successfully', { type: 'success' });
+    toast.show('Logout successfully', {type: 'success'});
   };
-  const { navigate } = useAppNavigation();
+  const {navigate} = useAppNavigation();
 
   const handleApiTesting = () => {
     navigate('ApiTesting');
