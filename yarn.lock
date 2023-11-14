@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@aag-development/react-native-metaone-wallet-sdk@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@aag-development/react-native-metaone-wallet-sdk/-/react-native-metaone-wallet-sdk-0.1.8.tgz#b9f3ccf71c79ad464f21ed3c410024669ce12919"
-  integrity sha512-rgZaR12QyXIlWAmFldkdal0eCJ8PbDAy8k8BC9lVUpbmNsOoe0Yjui6FGclDYoEkuB1VwIDyk4UMTVccykJaIA==
+"@aag-development/react-native-metaone-wallet-sdk@1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@aag-development/react-native-metaone-wallet-sdk/-/react-native-metaone-wallet-sdk-1.7.0.tgz#edb57f9a1729ef1f0ab6eef79860120b355f7f45"
+  integrity sha512-VXRuSXjA0sLVghlH4Ajh0PA6kRAR/obofIFumkvRGw5oozXd65G7/C2qvK5WG00HlRKQPfGahuVENPTi6Bq4YA==
 
 "@aashutoshrathi/word-wrap@^1.2.3":
   version "1.2.6"

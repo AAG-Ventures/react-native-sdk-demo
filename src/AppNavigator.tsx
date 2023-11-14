@@ -11,6 +11,7 @@ import {useAppContext} from './hooks/useApp';
 import ChangeThemeScreen from './screens/ChangeThemeScreen';
 import ChangeLanguageScreen from './screens/ChangeLanguageScreen';
 import ApiTestingScreen from './screens/ApiTestingScreen';
+import SendCustomTransactionScreen from './screens/SendCustomTransactionScreen';
 
 export type RouteStackTypescript = {
   Login: undefined;
@@ -18,6 +19,7 @@ export type RouteStackTypescript = {
   ChangeTheme: undefined;
   ChangeLanguage: undefined;
   ApiTesting: undefined;
+  SendCustomTransactionScreen: undefined;
 };
 
 export const useAppNavigation = () =>
@@ -60,6 +62,11 @@ const AppNavigator: React.FC = () => {
                 <Stack.Screen
                   name="ApiTesting"
                   component={ApiTestingScreen}
+                  options={{headerShown: false}}
+                />
+                 <Stack.Screen
+                  name="SendCustomTransactionScreen"
+                  component={SendCustomTransactionScreen}
                   options={{headerShown: false}}
                 />
               </Stack.Group>

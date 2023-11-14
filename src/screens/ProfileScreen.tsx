@@ -1,28 +1,29 @@
 import * as React from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
 import {
+  isSignatureSet,
   getExpireAt,
   getSessionActivityStatus,
   logout,
   refreshSession,
 } from '@aag-development/react-native-metaone-wallet-sdk';
-import {OpenWallet} from '../components/Button/Button';
+import { OpenWalletButton } from '../components/Button/OpenWalletButton';
 import type {
   AuthApiModel,
   ColorsScheme,
 } from '@aag-development/react-native-metaone-wallet-sdk';
-import {useToast} from 'react-native-toast-notifications';
+import { useToast } from 'react-native-toast-notifications';
 import useSessionExpiration from '../hooks/useSessionExpiration';
-import {useAppContext} from '../hooks/useApp';
+import { useAppContext } from '../hooks/useApp';
 import useColorsAwareObject from '../hooks/useColorsAwareObject';
-import {Container} from '../components/Container';
-import {useAppNavigation} from '../AppNavigator';
+import { Container } from '../components/Container';
+import { useAppNavigation } from '../AppNavigator';
 
 const ProfileScreen: React.FC = () => {
   const toast = useToast();
   const [activityStatus, setActivityStatus] =
     React.useState<AuthApiModel.SessionActivityStatus>();
-  const {setIsAuthorized, setGlobalLoading} = useAppContext();
+  const { setIsAuthorized, setGlobalLoading } = useAppContext();
 
   const handleRefresh = async () => {
     setGlobalLoading(true);
@@ -32,14 +33,18 @@ const ProfileScreen: React.FC = () => {
           setExpireAt(+res);
         });
       }
-      toast.show('Session refresh was unsuccessful.', {type: 'error'});
+      toast.show('Session refresh was unsuccessful.', { type: 'error' });
       setGlobalLoading(false);
       logout();
+    }).catch(e => {
+      toast.show('Session refresh was unsuccessful.', { type: 'error' });
+      setIsAuthorized(false);
+      logout();
     });
-    toast.show('Session refreshed.', {type: 'success'});
+    toast.show('Session refreshed.', { type: 'success' });
     setGlobalLoading(false);
   };
-  const {expireAtSeconds, setExpireAt} = useSessionExpiration(toast);
+  const { expireAtSeconds, setExpireAt } = useSessionExpiration(toast);
 
   React.useEffect(() => {
     getExpireAt().then(res => {
@@ -53,9 +58,9 @@ const ProfileScreen: React.FC = () => {
   const handleLogout = () => {
     logout();
     setIsAuthorized(false);
-    toast.show('Logout successfully', {type: 'success'});
+    toast.show('Logout successfully', { type: 'success' });
   };
-  const {navigate} = useAppNavigation();
+  const { navigate } = useAppNavigation();
 
   const handleApiTesting = () => {
     navigate('ApiTesting');
@@ -67,6 +72,16 @@ const ProfileScreen: React.FC = () => {
     navigate('ChangeLanguage');
   };
 
+  const handlSendCustomTransaction = () => {
+    isSignatureSet().then(setPin => {
+      if (setPin) {
+        navigate('SendCustomTransactionScreen');
+      } else {
+        toast.show('Please create your signature', { type: 'warning' });
+      }
+    });
+  }
+
   const styles = useColorsAwareObject(screenStyles);
   return (
     <Container hideBack>
@@ -75,10 +90,11 @@ const ProfileScreen: React.FC = () => {
         <Text style={styles.text}>Result: {activityStatus}</Text>
       </View>
       <View style={styles.wrapper}>
-        <OpenWallet
+        <OpenWalletButton
           title="OPEN WALLET ACTIVITY"
           disabled={activityStatus === 'UNAUTHORISED'}
         />
+        <Button onPress={handlSendCustomTransaction} title="SEND CUSTOM TRANSACTION" />
         <Button onPress={handleApiTesting} title="API TESTING" />
         <Button onPress={handleRefresh} title="REFRESH SESSION" />
         <Button onPress={handleChangeTheme} title="CHANGE THEME" />

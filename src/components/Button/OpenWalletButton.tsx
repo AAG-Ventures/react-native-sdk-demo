@@ -7,7 +7,7 @@ type OpenSettingsButtonProps = {
   disabled?: boolean;
 };
 
-export const OpenWallet = ({title, disabled}: OpenSettingsButtonProps) => {
+export const OpenWalletButton = ({title, disabled}: OpenSettingsButtonProps) => {
   const handleOpenWallet = async () => {
     try {
       await openWallet();
