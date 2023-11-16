@@ -12,7 +12,7 @@
     "prebuild-android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/"
   },
   "dependencies": {
-    "@aag-development/react-native-metaone-wallet-sdk": "1.7.0",
+    "@aag-development/react-native-metaone-wallet-sdk": "1.7.2",
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/native-stack": "^6.9.14",
     "axios": "^1.5.1",
