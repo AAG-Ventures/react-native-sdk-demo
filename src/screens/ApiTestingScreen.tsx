@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet, View, Text, TextInput, Button} from 'react-native';
+import {StyleSheet, View, Text, Button} from 'react-native';
 import {
   getWallets,
   type ColorsScheme,
@@ -11,6 +11,7 @@ import {
 import useColorsAwareObject from '../hooks/useColorsAwareObject';
 import {Container} from '../components/Container';
 import DropDownPicker from 'react-native-dropdown-picker';
+import Input from '../components/Input';
 
 const items = [
   {label: 'GET:Wallets', value: 'GET:Wallets'},
@@ -74,7 +75,7 @@ const ApiTestingScreen: React.FC = () => {
           onSelectItem={onSelectItem}
         />
         <Button onPress={onSubmit} disabled={!value} title="SUBMIT" />
-        <TextInput
+        <Input
           style={styles.input}
           placeholder="Response"
           multiline

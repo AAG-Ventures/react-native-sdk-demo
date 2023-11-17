@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import {
   type Wallets,
   type ColorsScheme,
@@ -11,6 +11,7 @@ import { Container } from '../components/Container';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useToast } from 'react-native-toast-notifications';
 import CustomButton from '../components/Button/CustomButton';
+import Input from '../components/Input';
 
 
 
@@ -100,22 +101,17 @@ const SendCustomTransactionScreen: React.FC = () => {
             />
           )
         }
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="To Address:"
           value={address}
           onChangeText={setAddress}
         />
-
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="Amount:"
           value={amount}
           onChangeText={setAmount}
         />
-
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="Personal Note:"
           value={personalNote}
           onChangeText={setPersonalNote}
@@ -151,14 +147,6 @@ const screenStyles = (colors: ColorsScheme) =>
       width: '100%',
       gap: 15,
       padding: 20,
-    },
-    input: {
-      color: colors.black,
-      padding: 10,
-      borderWidth: 1,
-      marginBottom: 5,
-      borderRadius: 4,
-      borderColor: colors.black60,
     },
   });
 

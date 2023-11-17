@@ -78,8 +78,8 @@ android {
         applicationId "com.metaone.reactnativesdkexample"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "1.0"
+        versionCode 4
+        versionName "1.7.2"
     }
     signingConfigs {
         release {

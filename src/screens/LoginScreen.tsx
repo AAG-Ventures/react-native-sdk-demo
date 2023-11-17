@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   StyleSheet,
-  TextInput,
   View,
 } from 'react-native';
 import {
@@ -16,6 +15,7 @@ import type { ColorsScheme } from '@aag-development/react-native-metaone-wallet-
 import useColorsAwareObject from '../hooks/useColorsAwareObject';
 import { Container } from '../components/Container';
 import CustomButton from '../components/Button/CustomButton';
+import Input from '../components/Input';
 
 const LoginScreen: React.FC<any> = ({ navigation }) => {
   const toast = useToast();
@@ -54,7 +54,7 @@ const LoginScreen: React.FC<any> = ({ navigation }) => {
   return (
     <Container hideBack>
       <View style={styles.wrapper}>
-        <TextInput
+        <Input
           keyboardType="email-address"
           style={styles.input}
           placeholder="Enter email"
@@ -90,12 +90,7 @@ const screenStyles = (colors: ColorsScheme) =>
       padding: 40,
     },
     input: {
-      color: colors.black,
-      padding: 10,
-      borderWidth: 1,
       marginBottom: 20,
-      borderRadius: 4,
-      borderColor: colors.black60,
     },
   });
 export default LoginScreen;
