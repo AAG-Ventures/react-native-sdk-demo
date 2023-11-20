@@ -68,8 +68,9 @@ const SendCustomTransactionScreen: React.FC = () => {
         toast.show('Transaction failed', { type: 'warning' });
       }
     }).catch(e => {
+      console.log("sendTransaction", e)
       setLoading(false)
-      toast.show(JSON.stringify(e), { type: 'error' });
+      toast.show('Transaction failed', { type: 'warning' });
     })
   };
 
