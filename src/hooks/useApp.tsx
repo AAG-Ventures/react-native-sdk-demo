@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   getColorsScheme,
   getCurrentLanguage,
@@ -7,11 +7,12 @@ import {
   setColorsScheme,
   setCurrentLanguage,
   LanguageType,
+  setSignatureIntroImage,
 } from '@aag-development/react-native-metaone-wallet-sdk';
 import sdkConfig from '../sdkConfig.json';
-import {version} from '../../package.json';
-import type {ColorsScheme} from '@aag-development/react-native-metaone-wallet-sdk';
-import {Platform} from 'react-native';
+import { version } from '../../package.json';
+import type { ColorsScheme } from '@aag-development/react-native-metaone-wallet-sdk';
+import { Image, Platform } from 'react-native';
 
 interface IAppData {
   isInitialized: boolean;
@@ -73,6 +74,7 @@ const useApp = () => {
         version,
         sdkRealm: sdkConfig.realm,
       });
+      setSignatureIntroImage(Image.resolveAssetSource(require("../assets/signature_intro.png")).uri)
       await fetchColorsScheme();
       await fetchCurrentLanguage();
       const activityStatus = await getSessionActivityStatus();
@@ -108,7 +110,7 @@ const useApp = () => {
   };
 };
 
-export const AppProvider: React.FC<IAppProviderProps> = ({children}) => {
+export const AppProvider: React.FC<IAppProviderProps> = ({ children }) => {
   const value = useApp();
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

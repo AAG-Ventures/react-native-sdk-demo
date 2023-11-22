@@ -6,10 +6,11 @@ import {
   getSessionActivityStatus,
   logout,
   refreshSession,
+  setupUserData,
+  AuthApiModel,
 } from '@aag-development/react-native-metaone-wallet-sdk';
 import { OpenWalletButton } from '../components/Button/OpenWalletButton';
 import type {
-  AuthApiModel,
   ColorsScheme,
 } from '@aag-development/react-native-metaone-wallet-sdk';
 import { useToast } from 'react-native-toast-notifications';
@@ -29,8 +30,9 @@ const ProfileScreen: React.FC = () => {
     setGlobalLoading(true);
     await refreshSession().then(active => {
       if (active) {
-        return getExpireAt().then(res => {
+        return getExpireAt().then(async (res) => {
           setExpireAt(+res);
+          await setupUserData()
         });
       }
       toast.show('Session refresh was unsuccessful.', { type: 'error' });
@@ -50,8 +52,11 @@ const ProfileScreen: React.FC = () => {
     getExpireAt().then(res => {
       setExpireAt(+res);
     });
-    getSessionActivityStatus().then(res => {
+    getSessionActivityStatus().then(async (res) => {
       setActivityStatus(res);
+      if (res != AuthApiModel.SessionActivityStatus.UNAUTHORISED) {
+        await setupUserData()
+      }
     });
   }, [setExpireAt]);
 
