@@ -27,19 +27,5 @@ allprojects {
     jcenter()
     mavenCentral()
     maven { url 'https://www.jitpack.io' }
-    maven {
-      Properties properties = new Properties()
-
-      try {
-        properties.load(new FileInputStream(rootProject.file('local.properties')))
-      } catch (Exception e) {
-        println("Failed to load local.properties file.")
-      }
-      url properties.getProperty('walletsdk.maven.url')
-      credentials {
-        username = properties.getProperty('walletsdk.maven.username')
-        password = properties.getProperty('walletsdk.maven.password')
-      }
-    }
   }
 }

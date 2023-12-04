@@ -12,28 +12,9 @@ After you are accepted to the SDK integration program, you will be provided with
 
 **Step 2: Installing dependency**
 
-`npm i @aag-development/react-native-metaone-wallet-sdk` or `yarn add @aag-development/react-native-metaone-wallet-sdkk`
+`npm i @aag-development/react-native-metaone-wallet-sdk` or `yarn add @aag-development/react-native-metaone-wallet-sdk`
 
 **Step 3: Adding MetaOne Wallet SDK to your project**
-### Android
-
-Add the following config to your "local.properties" file inside the Android directory:
-
-```
-walletsdk.maven.url=url // given by aag
-walletsdk.maven.username=username // given by aag
-walletsdk.maven.password=password // given by aag
-```
-
-Add the following code to your build.gradle file:
-
-```
-url properties.getProperty('walletsdk.maven.url')
-credentials {
-    username = properties.getProperty('walletsdk.maven.username')
-    password = properties.getProperty('walletsdk.maven.password')
-}
-```
 
 ### iOS
 #### 1. Add the following code to your Podfile:
